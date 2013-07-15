@@ -87,7 +87,8 @@ ubootcmds_pre = [
 'setenv nb \'namedfree __tmp_load\'',
 'setenv na3 \'namedalloc lblock1 0x10000000 0x20000000\'',
 'setenv mem \'mem=block:lblock0,lkdump,lblock1\'',
-'setenv ba \'numcores=1 namedblock=lblock0 endbootargs\''
+'setenv ba \'numcores=1 namedblock=lblock0 endbootargs\'',
+'setenv slram \'slram=root,0x40000000,+1073741824 root=1f00\'',
 ]
 
 ubootcmds_64M = [
@@ -102,7 +103,7 @@ ubootcmds_160M = [
 ]
 
 ubootcmds_post = [
-'setenv pkb \'bootoctlinux 0x10000000 $(ba) $(mem) $(c)\'',
+'setenv pkb \'bootoctlinux 0x10000000 $(ba) $(mem) $(c) $(slram)\'',
 'setenv pkblk \'$(nb); $(na1); $(na2);$(na3)\'',
 'run pkblk',
 'run pkb',
@@ -151,7 +152,7 @@ t.sendcmds(linuxprompt, linuxcmds_pre, timeout=None)
 #pdb.set_trace()
 t.sendcmds(linuxprompt, linuxcmds_160M, timeout=None)
 
-i = t.expect([linuxprompt, 'Inconsistency detected by ld.so'])
+i = t.expect([linuxprompt, 'Inconsistency detected by ld.so'], timeout=None)
 if i == 0:
         t.sendcmds(linuxprompt, linuxcmds_post, timeout=None)
         t.expect(linuxprompt, timeout=None)
