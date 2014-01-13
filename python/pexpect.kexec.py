@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 ######
-# Authour: Prem Mallappa <prem.mallappa@gmail.com
+# Author: Prem Mallappa <prem.mallappa@gmail.com>
 #
 # Description: Automation script to allow cavium simulator to U-boot prompt,
 #              Later execute some commands in Linux
